@@ -24,7 +24,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Code Splitting'
         }),
-        new ExtractTextPlugin("stylesssss.css"),
+        new ExtractTextPlugin("styles.css"),
         // new webpack.optimize.CommonsChunkPlugin({
         //   name: 'common'
         // })
