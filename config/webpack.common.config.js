@@ -1,19 +1,37 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-    module.exports = {
-      entry: {
-        app: './src/index.js'
-      },
-  plugins: [
-        new CleanWebpackPlugin(['dist']),
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+module.exports = {
+    entry: {
+        app: './src/index.js',
+        // another: './src/another-module.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            }
+        ]
+    },
+    plugins: [
+        new CleanWebpackPlugin([ 'dist' ]),
         new HtmlWebpackPlugin({
-              title: 'Production'
-    })
-  ],
-  output: {
+            title: 'Code Splitting'
+        }),
+        new ExtractTextPlugin("stylesssss.css"),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //   name: 'common'
+        // })
+    ],
+    output: {
         filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'dist')
-      }
+        chunkFilename: '[name].bundle.js',
+        path: path.resolve(__dirname, '../dist')
+    }
 };
